@@ -222,6 +222,7 @@ const setCatName = async (req, res) => {
 
 // Function to create a new dog in the database
 const setDogName = async (req, res) => {
+  console.log('Received POST to /setDogName');
   if (!req.body.name || !req.body.breed || !req.body.age) {
     return res.status(400).json({ error: 'name, breed, and age are all required' });
   }
@@ -234,7 +235,9 @@ const setDogName = async (req, res) => {
 
   const newDog = new Dog(dogData);
   try {
+    console.log('Saving new dog: ', dogData);
     await newDog.save();
+    console.log('Dog saved!');
     return res.status(201).json({
       name: newDog.name,
       breed: newDog.breed,
